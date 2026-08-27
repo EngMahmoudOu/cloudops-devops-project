@@ -20,13 +20,10 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: |
-          pip install -r app/requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Check Python syntax
-        run: |
-          python -m py_compile app/app.py
+        run: python -m py_compile app/app.py
 
       - name: Build Docker image
-        run: |
-          docker build -t cloudops-app:${{ github.sha }} .
+        run: docker build -t cloudops-app:${{ github.sha }} .
