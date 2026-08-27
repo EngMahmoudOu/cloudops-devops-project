@@ -1,0 +1,13 @@
+app/venv/
+__pycache__/
+*.pyc
+.git/
+.gitignore
+README.md
+terraform/
+ansible/
+kubernetes/
+helm/
+monitoring/
+scripts/
+tests/
