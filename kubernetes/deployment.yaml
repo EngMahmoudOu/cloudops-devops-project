@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: cloudops-deployment
+
+spec:
+  replicas: 3
+
+  selector:
+    matchLabels:
+      app: cloudops
+
+  template:
+    metadata:
+      labels:
+        app: cloudops
+
+    spec:
+      containers:
+        - name: cloudops
+          image: cloudops-app:v1
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 5000
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 3
+            periodSeconds: 5
