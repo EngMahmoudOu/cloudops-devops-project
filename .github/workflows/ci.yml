@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  test-and-build:
+  test-build-scan:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,5 +25,19 @@ jobs:
       - name: Check Python syntax
         run: python -m py_compile app/app.py
 
+      - name: Scan repository for security issues
+        run: |
+          docker run --rm \
+            -v "$PWD:/project" \
+            aquasec/trivy:latest \
+            fs --scanners vuln,secret,misconfig /project
+
       - name: Build Docker image
         run: docker build -t cloudops-app:${{ github.sha }} .
+
+      - name: Scan Docker image
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            aquasec/trivy:latest \
+            image cloudops-app:${{ github.sha }}
