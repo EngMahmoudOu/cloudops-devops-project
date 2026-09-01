@@ -1,20 +1,52 @@
-CloudOps DevOps Project
+# CloudOps DevOps Project
 
-- Git and GitHub for version control
-- Jenkins for CI/CD
-- Docker for containerization
-- AWS for cloud infrastructure
-- Terraform for infrastructure as code
-- Ansible for configuration automation
-- Kubernetes for container orchestration
-- Helm for Kubernetes packaging
-- Argo CD for GitOps
-- Prometheus and Grafana for monitoring
-- Loki for logging
-- Bash and Python for automation
+An end-to-end DevOps project built around a Python Flask application, covering infrastructure automation, CI/CD, Kubernetes, GitOps, monitoring, logging, and security.
 
-By the end of the project, I want to have a small web application running through a complete DevOps workflow.
+## Architecture
 
-The infrastructure will be defined as code, application changes will go through an automated pipeline, Kubernetes will manage the application, Argo CD will keep the deployment in sync with Git, and the environment will include monitoring, logging, and basic security practices.
+```text
+                    GitHub
+                   /      \
+          GitHub Actions   Argo CD
+                |             |
+          Test / Trivy       Helm
+                |             |
+              Docker      Kubernetes
+                              |
+                         Flask Application
 
-The main purpose of this project is not the application itself. It is to understand how all of these DevOps tools work together in a real workflow.
+Terraform → AWS → EC2 → Ansible
+
+Prometheus ─┐
+            ├── Grafana
+Alloy → Loki┘
+```
+
+## Tech Stack
+
+Python · Flask · Docker · GitHub Actions · AWS · Terraform · Ansible · Kubernetes · Helm · Argo CD · Prometheus · Grafana · Loki · Alloy · Trivy
+
+## What I Implemented
+
+- Containerized a Flask application with Docker
+- Built a CI pipeline with GitHub Actions and Trivy security scanning
+- Provisioned AWS infrastructure using Terraform
+- Automated EC2 configuration with Ansible
+- Deployed and managed the application on Kubernetes
+- Used Helm to manage Kubernetes configuration
+- Implemented GitOps deployment and drift correction with Argo CD
+- Set up metrics and logging with Prometheus, Grafana, Loki, and Alloy
+- Tested Pod recovery, deployment failures, and configuration drift
+
+## Project Structure
+
+```text
+app/          Flask application
+terraform/    AWS infrastructure
+ansible/      EC2 configuration
+kubernetes/   Kubernetes manifests
+helm/         Helm chart
+.github/      CI workflow
+```
+
+This project was built to put the main DevOps components into one working environment and understand how they interact from code to deployment and monitoring.
